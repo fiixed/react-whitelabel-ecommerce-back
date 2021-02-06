@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
+const { readdirSync } = require('fs');
 
 // app
 const app = express();
@@ -22,12 +23,8 @@ app.use(morgan('dev'));
 app.use(express.json({limit: '2mb'}));
 app.use(cors());
 
-// route
-app.get('/api', (req, res) => {
-    res.json({
-        data: 'hey you hit node API update hey hey'
-    });
-});
+// routes middleware - autoloading
+readdirSync('./routes').map((routeFile) => app.use('/api', require('./routes/' + routeFile)));
 
 // port
 const port = process.env.PORT || 8000;

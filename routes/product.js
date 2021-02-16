@@ -18,7 +18,4 @@ router.put('/product/:slug', authCheck, adminCheck, update);
 router.post('/products', list);
 
 
-
-
-
 module.exports = router;

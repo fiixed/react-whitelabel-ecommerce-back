@@ -9,8 +9,8 @@ const { authCheck, adminCheck } = require('../middlewares/auth');
 const { create, listAll, remove, read, update, list, productsCount }  = require('../controllers/product');
 
 // routes
-router.post('/product', authCheck, adminCheck, create);
 router.get('/products/total', productsCount);
+router.post('/product', authCheck, adminCheck, create);
 router.get('/products/:count', listAll);  // products/10
 router.delete('/product/:slug', authCheck, adminCheck, remove);
 router.get('/product/:slug', read);

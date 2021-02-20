@@ -165,10 +165,10 @@ exports.listRelated = async (req, res) => {
   res.json(related);
 }
 
-// SERACH / FILTER
+// SEARCH / FILTER
 
 const handleQuery = async (req, res, query) => {
-  const products = await Product.find({ $text: { $search: query } })  // text field is both in title and description in product model
+  const products = await Product.find({ $text: { $search: query } })
     .populate("category", "_id name")
     .populate("subs", "_id name")
     .populate("postedBy", "_id name")
@@ -177,12 +177,37 @@ const handleQuery = async (req, res, query) => {
   res.json(products);
 };
 
+const handlePrice = async (req, res, price) => {
+  try {
+    let products = await Product.find({
+      price: {
+        $gte: price[0],  // greater than
+        $lte: price[1],  // less than
+      },
+    })
+      .populate("category", "_id name")
+      .populate("subs", "_id name")
+      .populate("postedBy", "_id name")
+      .exec();
+
+    res.json(products);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 exports.searchFilters = async (req, res) => {
-  const { query } = req.body;
+  const { query, price } = req.body;
 
   if (query) {
-    console.log("query", query);
-    await handleQuery(req, res, query); // input will be different depending on type of search
+    console.log("query --->", query);
+    await handleQuery(req, res, query);
+  }
+
+  // price [20, 200]
+  if (price !== undefined) {
+    console.log("price ---> ", price);
+    await handlePrice(req, res, price);
   }
 };
 

@@ -211,7 +211,7 @@ const handleCategory = async (req, res, category) => {
 };
 
 exports.searchFilters = async (req, res) => {
-  const { query, price } = req.body;
+  const { query, price, category } = req.body;
 
   if (query) {
     console.log("query --->", query);

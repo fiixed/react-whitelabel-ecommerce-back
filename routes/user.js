@@ -7,7 +7,7 @@ const { authCheck } = require("../middlewares/auth");
 // controllers
 const { userCart } = require("../controllers/user");
 
-router.post("/cart", authCheck, userCart); // save cart
+router.post("/user/cart", authCheck, userCart); // save cart
 
 // router.get("/user", (req, res) => {
 //   res.json({

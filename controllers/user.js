@@ -51,3 +51,14 @@ exports.userCart = async (req, res) => {
   console.log("new cart", newCart);
   res.json({ ok: true });  // if we get the true response, user is taken from cart to checkout page
 };
+
+exports.getUserCart = async (req, res) => {
+  const user = await User.findOne({ email: req.user.email }).exec();
+
+  let cart = await Cart.findOne({ orderdBy: user._id })
+    .populate("products.product", "_id title price totalAfterDiscount")
+    .exec();
+
+  const { products, cartTotal, totalAfterDiscount } = cart;
+  res.json({ products, cartTotal, totalAfterDiscount });
+};

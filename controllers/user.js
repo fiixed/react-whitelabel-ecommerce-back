@@ -155,7 +155,7 @@ exports.orders = async (req, res) => {
   let user = await User.findOne({ email: req.user.email }).exec();
 
   let userOrders = await Order.find({ orderdBy: user._id })
-    .populate("products.product")
+    .populate("products.product") // need to populate to get entire information about the product
     .exec();
 
   res.json(userOrders);

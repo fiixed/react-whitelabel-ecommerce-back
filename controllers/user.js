@@ -135,5 +135,5 @@ exports.createOrder = async (req, res) => {
   }).save();
 
   console.log("NEW ORDER SAVED", newOrder);
-  res.json({ ok: true });
+  res.json({ ok: true });  // in frontend if we get ok true, we can empty the cart and remove it from local storage, redux and DB
 };

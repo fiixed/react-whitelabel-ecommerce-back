@@ -116,4 +116,4 @@ dist
 .pnp.*
 
 #Service Account Key
-config/fbServiceAccountKey.json
+#config/fbServiceAccountKey.json
